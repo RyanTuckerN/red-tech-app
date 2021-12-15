@@ -1,62 +1,12 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Page from "../../components/Page";
-import OrdersTable from "../../components/Table";
+import HomeView from "./components";
 
-const API_KEY = "b7b77702-b4ec-4960-b3f7-7d40e44cf5f4";
-const API_URL = "https://red-candidate-web.azurewebsites.net/api/Orders";
+export const API_KEY = "b7b77702-b4ec-4960-b3f7-7d40e44cf5f4";
+export const API_URL = "https://red-candidate-web.azurewebsites.net/api/Orders";
 
 export default function Home() {
-  const [orders, setOrders] = useState<Order[]>([
-    {
-      orderId: 1,
-      orderType: "PurchaseOrder",
-      customerName: "Company B",
-      createdDate: "Tuesday, 14 December 2021",
-      createdByUserName: "RT",
-    },
-    {
-      orderId: 2,
-      orderType: "PurchaseOrder",
-      customerName: "Company B",
-      createdDate: "Tuesday, 14 December 2021",
-      createdByUserName: "RT",
-    },
-    {
-      orderId: 3,
-      orderType: "PurchaseOrder",
-      customerName: "Company B",
-      createdDate: "Tuesday, 14 December 2021",
-      createdByUserName: "RT",
-    },
-    {
-      orderId: 4,
-      orderType: "PurchaseOrder",
-      customerName: "Company B",
-      createdDate: "Tuesday, 14 December 2021",
-      createdByUserName: "RT",
-    },
-    {
-      orderId: 5,
-      orderType: "PurchaseOrder",
-      customerName: "Company B",
-      createdDate: "Tuesday, 14 December 2021",
-      createdByUserName: "RT",
-    },
-    {
-      orderId: 6,
-      orderType: "PurchaseOrder",
-      customerName: "Company B",
-      createdDate: "Tuesday, 14 December 2021",
-      createdByUserName: "RT",
-    },
-    {
-      orderId: 7,
-      orderType: "PurchaseOrder",
-      customerName: "Company B",
-      createdDate: "Tuesday, 14 December 2021",
-      createdByUserName: "RT",
-    },
-  ]);
+  const [orders, setOrders] = useState<Order[]>([]); //orders from DB 
   const [selected, setSelected] = useState<number[]>([]);
 
   //keep track of which orders are selected for deletion
@@ -68,6 +18,7 @@ export default function Home() {
     }
   };
 
+  //async http request
   const fetchOrders = async (): Promise<void> => {
     try {
       const res = await fetch(`${API_URL}`, {
@@ -83,6 +34,7 @@ export default function Home() {
     }
   };
 
+  //async http request
   const deleteSelected = async (): Promise<void> => {
     try {
       if (!selected.length) return;
@@ -95,36 +47,44 @@ export default function Home() {
         body: JSON.stringify(selected),
       });
       res.status === 200 &&
-        setOrders(orders.filter((o) => !selected.includes(o.orderId)));
+        setOrders(orders.filter((o) => !selected.includes(o.orderId ?? -1)));
     } catch (err) {
       console.log(err);
     }
   };
 
-  //   useEffect(() => {
-  //     fetchOrders();
-  //   }, []);
+  // CDM
+  useEffect(() => {
+    fetchOrders();
+  }, []);
 
-  const tableProps = {
+
+  const homeViewProps = {
     orders,
     selected,
     deleteSelected,
     toggleSelected,
+    setSelected,
   };
 
   return (
     <Page headerTitle={"Home"}>
-      <div style={{maxWidth: 1000, margin: "0 auto"}}>
-          <OrdersTable {...tableProps} />
+      <div style={{ maxWidth: 1000, margin: "0 auto" }}>
+        <HomeView {...homeViewProps} />
       </div>
     </Page>
   );
 }
 
 export interface Order {
-  orderId: number;
-  orderType: string;
+  orderId?: number;
+  orderType:
+    | "Standard"
+    | "SaleOrder"
+    | "PurchaseOrder"
+    | "TransferOrder"
+    | "ReturnOrder";
   customerName: string;
-  createdDate: string;
+  createdDate?: string;
   createdByUserName: string;
 }
