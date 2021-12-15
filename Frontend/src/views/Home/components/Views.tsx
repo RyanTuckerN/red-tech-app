@@ -18,6 +18,7 @@ interface ListProps extends HomeProps {
   classes: any;
 }
 
+// >= 600px
 export function DesktopView({
   classes,
   orders,
@@ -58,6 +59,7 @@ export function DesktopView({
               <TableRow
                 key={orderId}
                 style={{
+                  //every other gets red background
                   backgroundColor:
                     i % 2 !== 0 ? colors.brandWhite : colors.brandRed + "14", //hex suffix for opacity
                 }}
@@ -91,6 +93,8 @@ export function DesktopView({
   );
 }
 
+
+// < 600px
 export function DeviceView({
   classes,
   orders,
@@ -118,6 +122,7 @@ export function DeviceView({
               className={classes.border}
               onClick={() => toggleSelected(orderId!)}
               style={{
+                //every other gets red background
                 backgroundColor:
                   i % 2 !== 0 ? colors.brandWhite : colors.brandRed + "14", //hex suffix for opacity
                 paddingRight: 0,

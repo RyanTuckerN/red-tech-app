@@ -1,36 +1,14 @@
-import { useState, useEffect, useContext } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import FormControl from "@material-ui/core/FormControl";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import { API_KEY, API_URL, Order } from "..";
+import { useState, useEffect } from "react";
+import { Order } from "..";
 import { colors } from "../../../shared/colors";
+import { Add, DeleteForever, Search } from "@material-ui/icons";
 import {
   Button,
-  Divider,
-  Grid,
   InputLabel,
   Select,
   TextField,
   Typography,
 } from "@material-ui/core";
-import { OrderSaveCtx } from "../../../contexts/State";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
-
-import { Add, DeleteForever, Search } from "@material-ui/icons";
 
 interface ListHeaderProps {
   classes: any;
@@ -84,8 +62,7 @@ export default function ListHeader({
           color="secondary"
           variant="contained"
           disabled={!selected.length}
-          title='Delete Selected Orders'
-
+          title="Delete Selected Orders"
         >
           <DeleteForever />
         </Button>
@@ -94,7 +71,7 @@ export default function ListHeader({
           onClick={() => setAddOpen(true)}
           color={"default"}
           variant="contained"
-          title='Add Order'
+          title="Add Order"
         >
           <Add />
         </Button>
@@ -185,7 +162,7 @@ export default function ListHeader({
 interface SearchProps {
   filterOrdersById: (id: string) => void;
   clearFilters: VoidFunction;
-  classes: any;
+  classes: any; // styles from useStyles hook
 }
 
 function SearchBar({ filterOrdersById, clearFilters, classes }: SearchProps) {
@@ -202,7 +179,10 @@ function SearchBar({ filterOrdersById, clearFilters, classes }: SearchProps) {
       type={"tel"}
       value={id}
       title="Find Order By ID Number"
-      onFocus={clearFilters}
+      onFocus={() => {
+        clearFilters();
+        setId("");
+      }}
       onChange={(e) => setId(e.target.value.replace(/[^0-9]+/g, ""))}
       InputProps={{
         className: classes.search,

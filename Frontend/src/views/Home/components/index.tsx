@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Order } from "..";
 import { Typography } from "@material-ui/core";
+
 import { DesktopView, DeviceView } from "./Views";
 import ListHeader from "./ListHeader";
 import AddOrder from "./AddOrderDialog";
@@ -23,6 +24,7 @@ export default function HomeView(props: HomeProps) {
   const [customerOptions, setCustomerOptions] = useState<string[]>([]); //only show existing customers
 
   const { selected, deleteSelected, setSelected } = props;
+  
   const classes = useStyles();
 
   const clearFilters = () => {
@@ -131,10 +133,10 @@ export default function HomeView(props: HomeProps) {
 
         {/* media screen queries in useStyles */}
         <div className={classes.desktop}>
-          <DesktopView {...props} classes={classes} orders={orders} />
+          {!!orders.length && <DesktopView {...props} classes={classes} orders={orders} />}
         </div>
         <div className={classes.device}>
-          <DeviceView {...props} classes={classes} orders={orders} />
+          {!!orders.length && <DeviceView {...props} classes={classes} orders={orders} />}
         </div>
       </div>
 

@@ -75,6 +75,12 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-between",
     marginTop: "20px",
+    [theme.breakpoints.up("xs")]: {
+      flexDirection: "row-reverse",
+    },
+    [theme.breakpoints.up("sm")]: {
+      flexDirection: "row",
+    },
   },
   select: {
     width: "30px",

@@ -1,38 +1,16 @@
-import { useState, useEffect, useContext } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import FormControl from "@material-ui/core/FormControl";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
+import { useContext } from "react";
 import { API_KEY, API_URL, Order } from "..";
-import { colors } from "../../../shared/colors";
 import {
   Button,
-  Divider,
-  Grid,
   InputLabel,
   Select,
   TextField,
-  Typography,
 } from "@material-ui/core";
 import { OrderSaveCtx } from "../../../contexts/State";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
-
-import { Add, DeleteForever, Search } from "@material-ui/icons";
-import ListHeader from "./ListHeader";
-import { DesktopView, DeviceView } from "./Views";
 
 interface AddOrderProps {
   open: boolean;
@@ -89,8 +67,9 @@ export default function AddOrder({
   };
 
   const updateOrder = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    //id is equivalent to the corresponding order property
+    //element id is equivalent to the corresponding order property
     const obj = { ...savedOrder, [e.target.id]: e.target.value };
+    
     //update context as user types
     setSavedOrder!(obj);
   };
