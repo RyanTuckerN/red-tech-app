@@ -56,6 +56,11 @@ export default function Home() {
     }
   };
 
+  // add a new order upon creation
+  const addOrderToHomeState = (order: Order): void => {
+    setOrders([...orders, order]);
+  };
+
   // CDM
   useEffect(() => {
     fetchOrders();
@@ -68,6 +73,7 @@ export default function Home() {
     deleteSelected,
     toggleSelected,
     setSelected,
+    addOrderToHomeState
   };
 
   return (

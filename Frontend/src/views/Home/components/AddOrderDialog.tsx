@@ -1,11 +1,6 @@
 import { useContext } from "react";
 import { API_KEY, API_URL, Order } from "..";
-import {
-  Button,
-  InputLabel,
-  Select,
-  TextField,
-} from "@material-ui/core";
+import { Button, InputLabel, Select, TextField } from "@material-ui/core";
 import { OrderSaveCtx } from "../../../contexts/State";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -14,16 +9,14 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 
 interface AddOrderProps {
   open: boolean;
-  orders: Order[];
   setOpen: (b: boolean) => void;
-  setOrders: React.Dispatch<React.SetStateAction<Order[]>>;
+  addOrderToHomeState: (order: Order) => void;
 }
 
 export default function AddOrder({
   open,
-  orders,
   setOpen,
-  setOrders,
+  addOrderToHomeState,
 }: AddOrderProps) {
   // context will update as user is creating an order. no need to save, as it is handled in context.
   // the context also saves to localstorage, so depending on browser settings, it should persist through a refresh
@@ -50,7 +43,7 @@ export default function AddOrder({
         body: JSON.stringify(savedOrder), //context
       });
       const newOrder: Order = await res.json();
-      setOrders([...orders, newOrder]); //add the order to view
+      res.status === 200 && addOrderToHomeState(newOrder); //add the order to view
 
       //reset form
       setSavedOrder!({
@@ -69,7 +62,7 @@ export default function AddOrder({
   const updateOrder = (e: React.ChangeEvent<HTMLInputElement>): void => {
     //element id is equivalent to the corresponding order property
     const obj = { ...savedOrder, [e.target.id]: e.target.value };
-    
+
     //update context as user types
     setSavedOrder!(obj);
   };

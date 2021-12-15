@@ -14,6 +14,7 @@ export interface HomeProps {
   deleteSelected: () => Promise<void>;
   toggleSelected: (orderId: number) => void;
   setSelected: React.Dispatch<React.SetStateAction<number[]>>;
+  addOrderToHomeState: (order: Order) => void;
 }
 
 export default function HomeView(props: HomeProps) {
@@ -107,6 +108,7 @@ export default function HomeView(props: HomeProps) {
     deleteSelected,
     setSelected,
     selectAll,
+    addOrderToHomeState: props.addOrderToHomeState
   };
 
   return (
@@ -141,8 +143,7 @@ export default function HomeView(props: HomeProps) {
       <AddOrder
         open={addOpen}
         setOpen={setAddOpen}
-        setOrders={setOrders}
-        orders={orders}
+        addOrderToHomeState={props.addOrderToHomeState}
       />
     </div>
   );
