@@ -18,12 +18,12 @@ const theme = createMuiTheme({
   typography: {
     fontFamily: "Fira Sans",
     h1: {
-      fontSize: "4rem",
+      fontSize: "2rem",
       fontWeight: 400,
     },
     h2: {
       fontFamily: "Fira Sans",
-      fontSize: "3.4rem",
+      fontSize: "1.8rem",
     },
     h5: {
       fontFamily: "Fira Sans",
@@ -35,10 +35,10 @@ const theme = createMuiTheme({
       fontFamily: "Fira Sans",
     },
     subtitle1: {
-      fontFamily: "Ubuntu",
+      fontFamily: "Fira Sans",
     },
     subtitle2: {
-      fontFamily: "Ubuntu",
+      fontFamily: "Fira Sans",
     },
     body1: {
       fontFamily: "Ubuntu",

@@ -8,6 +8,7 @@ import AddOrder from "./AddOrderDialog";
 import useStyles from "./useStyles";
 
 export interface HomeProps {
+  loading: boolean;
   orders: Order[];
   selected: number[];
   deleteSelected: () => Promise<void>;
@@ -121,12 +122,8 @@ export default function HomeView(props: HomeProps) {
           >
             <Typography
               variant={"caption"}
-              style={{
-                fontSize: "1em",
-                fontStyle: "italic",
-              }}
-            >
-              No Orders!
+              style={{fontSize: "1em", fontStyle: "italic"}}>
+              {props.loading ? "Loading" : "No Orders!"}
             </Typography>
           </div>
         )}

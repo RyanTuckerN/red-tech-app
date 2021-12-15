@@ -6,7 +6,8 @@ export const API_KEY = "b7b77702-b4ec-4960-b3f7-7d40e44cf5f4";
 export const API_URL = "https://red-candidate-web.azurewebsites.net/api/Orders";
 
 export default function Home() {
-  const [orders, setOrders] = useState<Order[]>([]); //orders from DB 
+  const [loading, setLoading] = useState<boolean>(true); //fetch in progress
+  const [orders, setOrders] = useState<Order[]>([]); //orders from DB
   const [selected, setSelected] = useState<number[]>([]);
 
   //keep track of which orders are selected for deletion
@@ -21,6 +22,7 @@ export default function Home() {
   //async http request
   const fetchOrders = async (): Promise<void> => {
     try {
+      setLoading(true);
       const res = await fetch(`${API_URL}`, {
         method: "GET",
         headers: new Headers({
@@ -29,6 +31,7 @@ export default function Home() {
       });
       const json = await res.json();
       setOrders(json);
+      setLoading(false);
     } catch (err) {
       console.log(err);
     }
@@ -58,10 +61,10 @@ export default function Home() {
     fetchOrders();
   }, []);
 
-
   const homeViewProps = {
     orders,
     selected,
+    loading,
     deleteSelected,
     toggleSelected,
     setSelected,
