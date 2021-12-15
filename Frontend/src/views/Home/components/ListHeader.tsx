@@ -170,6 +170,7 @@ function SearchBar({ filterOrdersById, clearFilters, classes }: SearchProps) {
 
   useEffect(() => {
     filterOrdersById(id);
+    /* eslint-disable-next-line */
   }, [id]);
 
   return (
