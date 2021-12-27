@@ -24,7 +24,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "cypress": "node_modules/.bin/cypress"
   },
   "eslintConfig": {
     "extends": [
@@ -45,6 +46,9 @@
     ]
   },
   "devDependencies": {
-    "@types/react-select": "^3.1.1"
+    "@testing-library/cypress": "^8.0.2",
+    "@types/react-select": "^3.1.1",
+    "cypress": "^9.2.0",
+    "cypress-plugin-tab": "^1.0.5"
   }
 }

@@ -116,6 +116,7 @@ export default function AddOrder({
               id="customerName"
               label="Customer Name"
               required
+              name="customer name"
               type="text"
               fullWidth
               value={customerName}
